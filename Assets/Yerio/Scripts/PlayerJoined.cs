@@ -15,7 +15,7 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         if(entity.IsOwner && !playerCamera.gameObject.activeInHierarchy)
         {
-            playerCamera.gameObject.SetActive(true);        
+            playerCamera.gameObject.SetActive(true);
         }
     }
 }
