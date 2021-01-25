@@ -11,6 +11,8 @@ public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
     {
         base.Detached();
         SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void Update()
