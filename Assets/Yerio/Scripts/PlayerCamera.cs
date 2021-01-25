@@ -14,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
     public Vector3 camOffset;
 
     [Header("--Player reference--")]
-    public GameObject player;  
+    public Transform player;  
 
     [HideInInspector]
     public float rotCamX;
@@ -33,16 +33,18 @@ public class PlayerCamera : MonoBehaviour
 
     void CameraPos()
     {
-        rotCamY = Input.GetAxis("Mouse X") * sensitivity;
-        rotCamX += Input.GetAxis("Mouse Y") * sensitivity;
+        rotCamY += Input.GetAxis("Mouse X") * sensitivity;
+        rotCamX -= Input.GetAxis("Mouse Y") * sensitivity;
 
         //Clamping the rotX value
         rotCamX = Mathf.Clamp(rotCamX, minRotX, maxRotX);
 
         //EulerAngles for the camera rotation (this is so it rotates around the player)
-        transform.eulerAngles = new Vector3(-rotCamX, transform.eulerAngles.y + rotCamY, 0);
-        transform.position = player.transform.position + camOffset;
-        player.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + rotCamY, 0);
+        Quaternion rotPlayer = Quaternion.Euler(0, rotCamY, 0);
+        Quaternion rotation = Quaternion.Euler(rotCamX, rotCamY, 0);
+        transform.position = player.position + camOffset;
+        transform.rotation = rotation;
+        player.rotation = rotPlayer; 
     }
 
     public void HideCursor()
