@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerJoined : Bolt.EntityBehaviour<IPlayerControllerState>
 {
     [SerializeField] Camera playerCamera;
 
-    public override void Attached()
+    public override void Detached()
     {
-        base.Attached();       
+        base.Detached();
+        SceneManager.LoadScene(0);
     }
 
     private void Update()
